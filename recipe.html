@@ -30,19 +30,33 @@
 			}
 			
 			$.getJSON('https://us-central1-smartup-hr-test-frontend.cloudfunctions.net/items/'+$.urlParam('item'), function(data) {
-				
+					var menubutton = '<div><a href="javascript:history.back()"><img src="https://smartup-hr-test-frontend.web.app/web_easy/assets/arrow_back.png" alt="backbutton" width="25" height="21"></a>'+data.title+'</div>';  
+					$( menubutton ).appendTo( nav_title );
+			});
+			
+			$.getJSON('https://us-central1-smartup-hr-test-frontend.cloudfunctions.net/items/'+$.urlParam('item'), function(data) {
 					var recipevar = '<div class="col-12 mt-5 ml-1 mr-1 chicken-box-radius" style="width:100%; background-color:white;">'
-					recipevar += '<div class="col-5 float-left border-right"><img class="card-img-top chicken-box-radius mt-4 mb-3" src="'+val.imageUrl+'" alt="Card image cap"><br>'
+					recipevar += '<div class="col-5 float-left border-right"><img class="card-img-top chicken-box-radius mt-4 mb-3" src="'+data.imageUrl+'" alt="Card image cap"><br>'
 					
-					recipevar += '<b>'+val.title+'</b> </br><br>'+val.description+'</br><div class="text-center">'
-					recipevar += '<img class="mt-4 mb-3 ml-4 mr-4" src="https://smartup-hr-test-frontend.web.app/web_easy/assets/website.png" alt="Card image cap" height="55" width="55">'
-					recipevar += '<img class="mt-4 mb-3 ml-4 mr-4" src="https://smartup-hr-test-frontend.web.app/web_easy/assets/youtube.png" alt="Card image cap" height="55" width="55">'
+					recipevar += '<b>'+data.title+'</b> </br><br>'+data.description+'</br><div class="text-center">'
+					recipevar += '<a href="'+data.websiteUrl+'"><img class="mt-4 mb-3 ml-4 mr-4" src="https://smartup-hr-test-frontend.web.app/web_easy/assets/website.png" alt="Card image cap" height="55" width="55"></a>'
+					recipevar += '<a href="'+data.youtubeUrl+'"><img class="mt-4 mb-3 ml-4 mr-4" src="https://smartup-hr-test-frontend.web.app/web_easy/assets/youtube.png" alt="Card image cap" height="55" width="55"></a>'
 					recipevar += '</div></div><div class="col-7 float-right border-left"><br><b>Υλικά</b><ul><br>'     
 
 					$.each(data.ingredients, function(key, val) {
-						recipevar += '</ul><b>Οδηγίες εκτέλεσης</b> <ul><br><li>       </li>'	
+						<!-- for (i = 0; i < val.ingredients.length; i++) { -->
+							recipevar += '<li>'+val+'</li>'
+						<!-- } -->
 					})
-					recipevar += '</ul><b>Οδηγίες εκτέλεσης</b> <ul><br><li>       </li><br><li>    </li></ul></div></div>'
+					
+					recipevar += '</ul><b>Οδηγίες εκτέλεσης</b> <ul><br>'
+					
+					$.each(data.instructions, function(key, val) {
+						<!-- for (i = 0; i < val.instructions.length; i++) { -->
+							recipevar += '<li>'+val+'</li><br>'
+						<!-- } -->
+					})
+					recipevar += '</ul></div></div>'
 					$( recipevar ).appendTo( recipediv );
 				
 			});
@@ -69,11 +83,9 @@
         <!-- <button class="btn btn-primary" id="menu-toggle">toggle menu</button> -->
 		<div></div>
 
-        <div class ="top-title">
-		<a href="javascript:history.back()">
-		<img src="https://smartup-hr-test-frontend.web.app/web_easy/assets/arrow_back.png" alt="backbutton" width="25" height="21">
-		</a>
-		 Southern fried chicken
+        <div id="nav_title" class ="top-title">
+		
+		 
 		</div>
       </nav>
 
