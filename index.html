@@ -15,7 +15,7 @@
   <script>
 	$.getJSON('https://us-central1-smartup-hr-test-frontend.cloudfunctions.net/menu', function(data) {
 				$.each(data.categories, function(key, val) {
-					var menubutton = '<a href="recipes.html?category='+val.id+'" class="list-group-item list-group-item-action bg-light text-center">'+val.title+'</a>';  
+					var menubutton = '<a href="boxrecipes.html?category='+val.id+'" class="list-group-item list-group-item-action bg-light text-center">'+val.title+'</a>';  
 					$( menubutton ).appendTo( menutitles );
 				})
 			});

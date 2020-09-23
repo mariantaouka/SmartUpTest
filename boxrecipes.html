@@ -13,7 +13,7 @@
 <script>
 		$.getJSON('https://us-central1-smartup-hr-test-frontend.cloudfunctions.net/menu', function(data) {
 				$.each(data.categories, function(key, val) {
-					var menubutton = '<a href="recipes.html?category='+val.id+'" class="list-group-item list-group-item-action bg-light text-center">'+val.title+'</a>';  
+					var menubutton = '<a href="boxrecipes.html?category='+val.id+'" class="list-group-item list-group-item-action bg-light text-center">'+val.title+'</a>';  
 					$( menubutton ).appendTo( menutitles );
 				})
 			});
@@ -32,9 +32,19 @@
 					outputhtml += '<h5 class="card-title">'+val.title+'<div onclick="changeicon(\'arrowdiv1\')" id="arrowdiv1" class="float-right" type="button" data-toggle="collapse" data-target="#'+val.id+'"'
 					outputhtml += 'aria-expanded="false" aria-controls="'+val.id+'"><img id="collapseimg" src="https://smartup-hr-test-frontend.web.app/web_easy/assets/arrow_right.png" height="20" width="20" class="float-right">'
 					outputhtml += '<img id="openimg" src="https://smartup-hr-test-frontend.web.app/web_easy/assets/arrow_down.png" style="display:none;" height="20" width="20" class="float-right"></div></h5>' 
-					outputhtml += '<div class="collapse multi-collapse" id="'+val.id+'"><div><p>'+val.description+'</p></div><a href="chicken.html" class="btn btn-secondary btn-lg btn-block">φτιάξε τη συνταγή</a>'
+					outputhtml += '<div class="collapse multi-collapse" id="'+val.id+'"><div><p>'+val.description+'</p></div><a href="recipe.html?item='+val.id+'" class="btn btn-secondary btn-lg btn-block">φτιάξε τη συνταγή</a>'
 					outputhtml += '</div></div></div></div>'
 					$( outputhtml ).appendTo( recipesdiv );
+				})
+			});
+			
+			var categoryVar=$.urlParam('category');
+			$.getJSON('https://us-central1-smartup-hr-test-frontend.cloudfunctions.net/menu', function(data) {
+				$.each(data.categories, function(key, val) {
+					if(val.id == categoryVar){
+						var outputhtml = '<div>'+val.title+'</div>';
+						$( outputhtml ).appendTo( menu_nav );
+					}
 				})
 			});
 </script>
@@ -59,8 +69,8 @@
       <nav class="navbar navbar-expand-lg navbar-light bg-light-topbar border-bottom">
 		<div></div>
 
-        <div class ="top-title">		
-		 Menu #1
+        <div id="menu_nav" class ="top-title">		
+		 
 		</div>
       </nav>
 
